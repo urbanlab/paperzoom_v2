@@ -33,10 +33,10 @@ void ofApp::draw()
     
     if ( this->_config->_projection )
     {
-        ofPushMatrix();
-        ofTranslate(PROJECTION_WIDTH, 0);
+        //ofPushMatrix();
+        //ofTranslate(PROJECTION_WIDTH, 0);
         this->_interface->draw(this->_scenarios[0]);
-        ofPopMatrix();
+        //ofPopMatrix();
     }
     else
     {
@@ -45,8 +45,11 @@ void ofApp::draw()
     
     if ( this->_config->_projection )
     {
-//        ofBackground(0);
-        this->_interface->getProjectionTexture().draw(0,0, PROJECTION_WIDTH,PROJECTION_HEIGHT);;
+        ofBackground(0);
+        //ofPushMatrix();
+        //ofTranslate(INTERFACE_WIDTH, 0);
+        this->_interface->getProjectionTexture().draw(0,0, PROJECTION_WIDTH,PROJECTION_HEIGHT);
+        //ofPopMatrix();
     }
 }
 

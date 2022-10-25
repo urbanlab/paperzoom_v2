@@ -33,7 +33,7 @@ int main()
     settings.setPosition(glm::vec2(0,0));
     settings.setSize(DEFAULT_INTERFACE_WIDTH, DEFAULT_INTERFACE_HEIGHT);
     settings.setGLVersion(3,2);
-
+    settings.windowMode = OF_GAME_MODE;
     shared_ptr<ofAppBaseWindow> mainWindow = ofCreateWindow(settings);
     shared_ptr<ofApp> mainApp(new ofApp);
 

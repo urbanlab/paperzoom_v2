@@ -1,10 +1,10 @@
 <config>
-    <production>0</production>
+    <production>1</production>
     <interface>
         <visible>1</visible>
         <width>1512</width>
         <height>855</height>
-        <fullscreen>0</fullscreen>
+        <fullscreen>1</fullscreen>
         <x>0</x>
         <y>0</y>
         <center>0</center>
@@ -39,12 +39,12 @@
         <height>480</height>
     </kinect>
     <detection>
-        <x>916</x>
-        <y>549</y>
-        <scale>203</scale>
-        <rotation>1</rotation>
-        <min_depth>74</min_depth>
-        <max_depth>51</max_depth>
+        <x>993</x>
+        <y>539</y>
+        <scale>198</scale>
+        <rotation>0</rotation>
+        <min_depth>39</min_depth>
+        <max_depth>49</max_depth>
         <n_steps>4</n_steps>
     </detection>
     <osc>
