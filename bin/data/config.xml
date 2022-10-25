@@ -1,0 +1,56 @@
+<config>
+
+    <production>1</production>
+
+    <interface>
+        <visible>1</visible>
+        <width>1512</width>
+        <height>855</height>
+        <fullscreen>0</fullscreen>
+        <x>0</x>
+        <y>0</y>
+        <center>0</center>
+        <fps>60</fps>
+        <vsync>0</vsync>
+        <padding>32</padding>
+    </interface>
+    
+    <projection>
+        <width>1920</width>
+        <height>1080</height>
+        <mask>
+            <left>
+                <p1>0</p1>
+                <p2>0</p2>
+            </left>
+            <top>
+                <p1>0</p1>
+                <p2>0</p2>
+            </top>
+            <right>
+                <p1>0</p1>
+                <p2>0</p2>
+            </right>
+            <bottom>
+                <p1>0</p1>
+                <p2>0</p2>
+            </bottom>
+        </mask>
+    </projection>
+
+    <kinect>
+        <width>1024</width>
+        <height>848</height>
+    </kinect>
+    
+    <detection>
+        <x>1018</x>
+        <y>637</y>
+        <scale>214</scale>
+        <rotation>359</rotation>
+        <min_depth>65</min_depth>
+        <max_depth>100</max_depth>
+        <n_steps>6</n_steps>
+    </detection>
+    
+</config>
