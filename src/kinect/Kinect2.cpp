@@ -50,7 +50,6 @@ Kinect2::Kinect2(ConfigShPtr config)
     #else
     _kinect = std::make_shared<ofxKinect>();
     _kinect->listDevices();
-    std::cout << _kinect->nextAvailableId() << std::endl;
     _kinect->setRegistration(true);
     _kinect->init();
     _kinect->open("A70776X05939234A");

@@ -66,6 +66,7 @@ Detection::Detection(ConfigShPtr config)
 
 void Detection::update()
 {
+    this->updateValues();
 }
 
 void Detection::drawFbo(ofTexture & tex)
@@ -349,4 +350,11 @@ void Detection::keyPressed(int key)
 //    {
 //        this->_tex_y = value;
 //    }
+}
+
+void Detection::updateValues()
+{
+    this->_n_steps = this->_steps->getValue();
+    this->_min_depth = this->_min->getValue() / 100.f;
+    this->_max_depth = this->_max->getValue() / 100.f;
 }

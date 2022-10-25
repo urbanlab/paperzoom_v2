@@ -81,6 +81,7 @@ Mapping::Mapping(ConfigShPtr config)
 
 void Mapping::update()
 {
+    this->updateValues();
 }
 
 void Mapping::drawFbo(ofTexture & tex, bool is_new)
@@ -418,4 +419,13 @@ void Mapping::keyPressed(int key)
     {
         this->_tex_rot = value;
     }
+}
+
+
+void Mapping::updateValues()
+{
+    this->_tex_scale = this->_scale->getValue() / 100.f;
+    this->_tex_x = this->_pos_x->getValue();
+    this->_tex_y = this->_pos_y->getValue();
+    this->_tex_rot = this->_rot->getValue();
 }

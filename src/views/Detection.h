@@ -47,6 +47,8 @@ public:
     int getMin();
     int getMax();
     int getSteps();
+
+    void updateValues();
     
 	//-- ATTRIBUTES -------------------------------------------------------------
 

@@ -49,6 +49,8 @@ public:
     int getX();
     int getY();
     int getRot();
+
+    void updateValues();
     
 	//-- ATTRIBUTES -------------------------------------------------------------
 

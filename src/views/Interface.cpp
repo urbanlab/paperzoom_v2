@@ -110,9 +110,8 @@ void Interface::update()
             Parameter::_osc_receiver.getNextMessage(m);
 
             std::string id = m.getAddress();
-            std::cout << id << std::endl;
 
-            if (id == "save" ) { this->save(); std::cout << "yo" << std::endl; }
+            if (id == "save" ) { this->save(); }
             else
             {
                 int value = m.getArgAsInt(0);
