@@ -45,11 +45,23 @@ void ofApp::draw()
     
     if ( this->_config->_projection )
     {
+        /*
+        if ( this->_config->_interface_visible )
+        {
+            ofPushMatrix();
+            ofTranslate(INTERFACE_WIDTH, 0);
+            this->_interface->getProjectionTexture().draw(0,0, PROJECTION_WIDTH,PROJECTION_HEIGHT);
+            ofPopMatrix();
+        }
+        else
+        {
+            ofBackground(0);
+            this->_interface->getProjectionTexture().draw(0,0, PROJECTION_WIDTH,PROJECTION_HEIGHT);
+        }
+        */
+        
         ofBackground(0);
-        //ofPushMatrix();
-        //ofTranslate(INTERFACE_WIDTH, 0);
         this->_interface->getProjectionTexture().draw(0,0, PROJECTION_WIDTH,PROJECTION_HEIGHT);
-        //ofPopMatrix();
     }
 }
 

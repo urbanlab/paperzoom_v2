@@ -28,9 +28,13 @@ void main()
     vec2 texcoord = vec2(1.f - vs_texcoord.x, 1.f - vs_texcoord.y)*tex_resolution;
     vec4 color = texture(tex, texcoord);
     
-    if ( color.r < min_depth || color.r > max_depth || texcoord.x < 0 || texcoord.y >= tex_resolution.y)
+    if ( color.r < min_depth || texcoord.x < 0 || texcoord.y >= tex_resolution.y)
     {
         color = vec4(0);
+    }
+    else if ( color.r > max_depth )
+    {
+        color = vec4(1);
     }
     else
     {

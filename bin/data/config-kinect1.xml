@@ -2,9 +2,11 @@
     <production>1</production>
     <interface>
         <visible>1</visible>
-        <width>1512</width>
-        <height>855</height>
-        <fullscreen>1</fullscreen>
+        <!-- <width>1512</width> -->
+        <!-- <height>855</height> -->
+        <width>1920</width>
+        <height>1080</height>
+        <fullscreen>0</fullscreen>
         <x>0</x>
         <y>0</y>
         <center>0</center>
@@ -40,12 +42,12 @@
     </kinect>
     <detection>
         <x>993</x>
-        <y>539</y>
-        <scale>198</scale>
-        <rotation>0</rotation>
-        <min_depth>39</min_depth>
-        <max_depth>49</max_depth>
-        <n_steps>4</n_steps>
+        <y>559</y>
+        <scale>201</scale>
+        <rotation>359</rotation>
+        <min_depth>40</min_depth>
+        <max_depth>52</max_depth>
+        <n_steps>5</n_steps>
     </detection>
     <osc>
         <mode>receive</mode>
