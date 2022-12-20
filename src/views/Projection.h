@@ -48,6 +48,23 @@ public:
     int getBottomLeft();
     int getBottomRight();
     
+    void incrLeftT(int v);
+    void incrLeftB(int v);
+    
+    void incrTopL(int v);
+    void incrTopR(int v);
+    
+    void incrRightT(int v);
+    void incrRightB(int v);
+    
+    void incrBottomL(int v);
+    void incrBottomR(int v);
+    
+    ofMesh & getLeft();
+    ofMesh & getTop();
+    ofMesh & getRight();
+    ofMesh & getBottom();
+
 	//-- ATTRIBUTES -------------------------------------------------------------
 
 private:

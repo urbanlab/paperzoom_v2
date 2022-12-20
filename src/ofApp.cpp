@@ -4,6 +4,8 @@
 #include "views/Interface.h"
 #include "scenario/Scenario.h"
 
+#include "views/Projection.h"
+
 void ofApp::setup()
 {
     this->_config = Config::create("config-kinect1.xml");
@@ -62,6 +64,21 @@ void ofApp::draw()
         
         ofBackground(0);
         this->_interface->getProjectionTexture().draw(0,0, PROJECTION_WIDTH,PROJECTION_HEIGHT);
+        
+        ofSetColor(0);
+        ofMesh left = this->_interface->getProjection()->getLeft();
+        left.draw();
+
+        ofMesh top = this->_interface->getProjection()->getTop();
+        top.draw();
+        
+        ofMesh right = this->_interface->getProjection()->getRight();
+        right.draw();
+        
+        ofMesh bottom = this->_interface->getProjection()->getBottom();
+        bottom.draw();
+       
+        ofSetColor(255);
     }
 }
 
@@ -96,8 +113,9 @@ void ofApp::keyPressed(int key)
 }
 
 //--------------------------------------------------------------
-void ofApp::keyReleased(int key){
-
+void ofApp::keyReleased(int key)
+{
+    this->_interface->keyReleased(key);
 }
 
 //--------------------------------------------------------------

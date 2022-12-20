@@ -524,3 +524,67 @@ int Projection::getRightTop() { return this->_right_top->getValue(); }
 int Projection::getRightBottom() { return this->_right_bottom->getValue(); }
 int Projection::getBottomLeft() { return this->_bottom_left->getValue(); }
 int Projection::getBottomRight() { return this->_bottom_right->getValue(); }
+
+void Projection::incrLeftT(int v)
+{
+    int value =  this->_left_top->incr(v);
+    glm::vec3 ve = this->_left.getVertex(1);
+    ve.x = value;
+    this->_left.setVertex(1, ve);
+}
+void Projection::incrLeftB(int v)
+{
+    int value = this->_left_bottom->incr(v);
+    glm::vec3 ve = this->_left.getVertex(3);
+    ve.x = value;
+    this->_left.setVertex(3, ve);
+}
+void Projection::incrTopL(int v)
+{
+    int value = this->_top_left->incr(v);
+    glm::vec3 ve = this->_top.getVertex(2);
+    ve.y = value;
+    this->_top.setVertex(2, ve);
+}
+void Projection::incrTopR(int v)
+{
+    int value = this->_top_right->incr(v);
+    glm::vec3 ve = this->_top.getVertex(3);
+    ve.y = value;
+    this->_top.setVertex(3, ve);
+}
+
+void Projection::incrRightT(int v)
+{
+    int value = this->_right_top->incr(v);
+    glm::vec3 ve = this->_right.getVertex(0);
+    ve.x = PROJECTION_WIDTH - value;
+    this->_right.setVertex(0, ve);
+}
+void Projection::incrRightB(int v)
+{
+    int value = this->_right_bottom->incr(v);
+    glm::vec3 ve = this->_right.getVertex(2);
+    ve.x = PROJECTION_WIDTH - value;
+    this->_right.setVertex(2, ve);
+}
+
+void Projection::incrBottomL(int v)
+{
+    int value = this->_bottom_left->incr(v);
+    glm::vec3 ve = this->_bottom.getVertex(0);
+    ve.y = PROJECTION_HEIGHT-value;
+    this->_bottom.setVertex(0, ve);
+}
+void Projection::incrBottomR(int v)
+{
+    int value = this->_bottom_right->incr(v);
+    glm::vec3 ve = this->_bottom.getVertex(1);
+    ve.y = PROJECTION_HEIGHT-value;
+    this->_bottom.setVertex(1, ve);
+}
+
+ofMesh & Projection::getLeft() { return this->_left; }
+ofMesh & Projection::getTop() { return this->_top; }
+ofMesh & Projection::getRight() { return this->_right; }
+ofMesh & Projection::getBottom() { return this->_bottom; }

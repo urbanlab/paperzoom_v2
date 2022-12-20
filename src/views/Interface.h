@@ -47,8 +47,10 @@ public:
     void mouseDragged(int x, int y);
     void mouseReleased(int x, int y);
     void keyPressed(int key);
-    
+    void keyReleased(int key);
+
     ofTexture & getProjectionTexture();
+    ProjectionShPtr getProjection();
     
     void save();
     
@@ -83,6 +85,10 @@ private:
 
     ofxOscReceiver _osc_receiver;
     ofxOscSender _osc_sender;
+    
+    //
+    
+    std::map<int,bool> _keypressed;
 };
 
 #endif /* interface_h */

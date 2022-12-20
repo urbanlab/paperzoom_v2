@@ -2,8 +2,6 @@
     <production>1</production>
     <interface>
         <visible>1</visible>
-        <!-- <width>1512</width> -->
-        <!-- <height>855</height> -->
         <width>1920</width>
         <height>1080</height>
         <fullscreen>0</fullscreen>

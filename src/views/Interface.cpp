@@ -88,6 +88,13 @@ Interface::Interface(ConfigShPtr config)
     
     Parameter::initOsc(
         this->_config->_osc_mode, this->_config->_osc_host, this->_config->_osc_port);
+    
+    _keypressed[103] = false;
+    _keypressed[104] = false;
+    _keypressed[100] = false;
+    _keypressed[98] = false;
+    _keypressed[38] = false;
+    _keypressed[233] = false;
 }
 
 //-- METHODS --------------------------------------------------------------------
@@ -266,6 +273,11 @@ ofTexture & Interface::getProjectionTexture()
     return this->_preview->getFboTexture();
 }
 
+ProjectionShPtr Interface::getProjection()
+{
+    return this->_projection;
+}
+
 
 void Interface::mousePressed(int x, int y)
 {
@@ -371,6 +383,51 @@ void Interface::keyPressed(int key)
     if (this->_mode == 1 ) { this->_mapping->keyPressed(key); }
     if (this->_mode == 2 ) { this->_detection->keyPressed(key); }
 
+    _keypressed[key] = true;
+
+    // g 103
+    // h 104
+    // d  100
+    // b 98
+    // 1 38
+    // 2 233
+    // top 57357
+    // bottom 57359
+
+    if ( key == 57357 || key == 57359 )
+    if ( _keypressed[103] && _keypressed[38] ) { this->_projection->incrLeftT( key == 57357 ? 1 : -1 ); }
+    if ( _keypressed[103] && _keypressed[233] ) { this->_projection->incrLeftB( key == 57357 ? 1 : -1 ); }
+    
+    if ( _keypressed[104] && _keypressed[38] ) { this->_projection->incrTopL( key == 57357 ? 1 : -1 ); }
+    if ( _keypressed[104] && _keypressed[233] ) { this->_projection->incrTopR( key == 57357 ? 1 : -1 ); }
+
+    if ( _keypressed[100] && _keypressed[38] ) { this->_projection->incrRightT( key == 57357 ? 1 : -1 ); }
+    if ( _keypressed[100] && _keypressed[233] ) { this->_projection->incrRightB( key == 57357 ? 1 : -1 ); }
+    
+    if ( _keypressed[98] && _keypressed[38] ) { this->_projection->incrBottomL( key == 57357 ? 1 : -1 ); }
+    if ( _keypressed[98] && _keypressed[233] ) { this->_projection->incrBottomR( key == 57357 ? 1 : -1 ); }
+    
+    if ( key == 115 )
+    {
+        this->_config->setMaskL1( this->_projection->getLeftTop() );
+        this->_config->setMaskL2( this->_projection->getLeftBottom() );
+
+        this->_config->setMaskT1( this->_projection->getTopLeft() );
+        this->_config->setMaskT2( this->_projection->getTopRight() );
+
+        this->_config->setMaskR1( this->_projection->getRightTop() );
+        this->_config->setMaskR2( this->_projection->getRightBottom() );
+
+        this->_config->setMaskB1( this->_projection->getBottomLeft() );
+        this->_config->setMaskB2( this->_projection->getBottomRight() );
+
+        this->_config->save();
+    }
+}
+
+void Interface::keyReleased(int key)
+{
+    _keypressed[key] = false;
 }
 
 void Interface::save()

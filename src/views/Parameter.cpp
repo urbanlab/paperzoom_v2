@@ -124,6 +124,16 @@ void Parameter::setValue(int value)
     }
 }
 
+int Parameter::incr(int value)
+{
+    this->_value += value;
+    this->_value = min(this->_value, this->_max);
+    this->_value = max(this->_value, this->_min);
+    this->setValue(this->_value);
+    
+    return this->_value;
+}
+
 int Parameter::mousePressed(int x, int y)
 {
     if ( this->_slider.inside(x, y) )

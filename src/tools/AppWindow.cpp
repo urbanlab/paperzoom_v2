@@ -61,8 +61,8 @@ void AppWindow::setup()
 //        WINDOW_HEIGHT = INTERFACE_HEIGHT;
         INTERFACE_WIDTH = min(max_width, this->_config->_interface_width);
         INTERFACE_HEIGHT = min(max_height, this->_config->_interface_height);
-        WINDOW_WIDTH = INTERFACE_WIDTH+PROJECTION_WIDTH;
-        WINDOW_HEIGHT = max(INTERFACE_HEIGHT,PROJECTION_WIDTH);
+        WINDOW_WIDTH = /*INTERFACE_WIDTH+*/PROJECTION_WIDTH;
+        WINDOW_HEIGHT = PROJECTION_HEIGHT;//max(INTERFACE_HEIGHT,PROJECTION_HEIGHT);
     }
 	else if (this->_config->_interface_fullscreen)
 	{
@@ -81,6 +81,7 @@ void AppWindow::setup()
         WINDOW_HEIGHT = INTERFACE_HEIGHT;
     }
     
+    std::cout << WINDOW_WIDTH << " " << WINDOW_HEIGHT << std::endl;
     this->_window->setWindowShape(WINDOW_WIDTH, WINDOW_HEIGHT);
     
     if (this->_config->_interface_center)

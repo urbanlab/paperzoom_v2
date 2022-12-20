@@ -50,10 +50,12 @@ public:
     
     static std::map<std::string,ParameterShPtr> _parameters;
     
+    int incr(int value);
+
 private:
     
     void setValue(int value);
-    
+
     
 	//-- ATTRIBUTES -------------------------------------------------------------
 
