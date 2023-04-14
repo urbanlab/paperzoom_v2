@@ -12,7 +12,7 @@ void ofApp::setup()
     std::shared_ptr<ofAppGLFWWindow> glfw = static_pointer_cast<ofAppGLFWWindow>(ofGetMainLoop()->getCurrentWindow());
     this->_window = AppWindow::create(this->_config, glfw);
 
-    this->_scenarios.push_back(Scenario::create("confluence"));
+    this->_scenarios.push_back(Scenario::create(this->_config->_dataset));
     return;
 }
 

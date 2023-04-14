@@ -30,6 +30,12 @@ Config::Config(const std::string & path)
     this->_xml.load(path);
     
     this->_xml.pushTag("config");
+
+    //
+
+    this->_dataset = this->_xml.getValue("dataset", "");
+
+    //
     
     this->_projection = this->_xml.getValue("production", false);
     

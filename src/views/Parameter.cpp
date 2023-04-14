@@ -172,14 +172,14 @@ void Parameter::mouseReleased(int x, int y)
 float Parameter::keyPressed(int key)
 {
     // 3680 > Shift
-    // 3686 > Cmd
+    // 3682 > Cmd
     
     if ( this->_hover )
     {        
         this->_keypressed[key] = true;
         float incr = 1;
         if ( _keypressed[3680] ) { incr = 0.1f; }
-        if ( _keypressed[3686] ) { incr = 0.01f; }
+        if ( _keypressed[3682] ) { incr = 0.01f; }
 
         if (key == OF_KEY_UP)
         {

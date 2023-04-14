@@ -39,7 +39,7 @@ void main()
 {
     vec2 texcoord = vec2(vs_texcoord.x, vs_texcoord.y);
     if (vflip == 1) { texcoord = vec2(vs_texcoord.x, 1.f-vs_texcoord.y); }
-    texcoord += offset_tex;//vec2(-0.000f, 0.025f);
+    texcoord += offset_tex;
 
     vec4 color = texture(tex, texcoord * tex_resolution);
     

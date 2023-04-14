@@ -1,9 +1,9 @@
 <config>
-    <production>0</production>
+    <production>1</production>
     <interface>
         <visible>1</visible>
-        <width>1512</width>
-        <height>915</height>
+        <width>1920</width>
+        <height>1080</height>
         <fullscreen>0</fullscreen>
         <x>0</x>
         <y>0</y>
@@ -13,14 +13,14 @@
         <padding>32</padding>
     </interface>
     <projection>
-        <width>1512</width>
-        <height>915</height>
-        <offset_tex_x>15.01</offset_tex_x>
-        <offset_tex_y>38.01</offset_tex_y>
+        <width>1920</width>
+        <height>1080</height>
+        <offset_tex_x>7.00</offset_tex_x>
+        <offset_tex_y>10.00</offset_tex_y>
         <mask>
             <top_left>
-                <x>374</x>
-                <y>12</y>
+                <x>0</x>
+                <y>0</y>
             </top_left>
             <top_right>
                 <x>0</x>
@@ -41,17 +41,18 @@
         <height>480</height>
     </kinect>
     <detection>
-        <x>320.00</x>
-        <y>240.00</y>
-        <scale>100.00</scale>
+        <x>976.00</x>
+        <y>555.00</y>
+        <scale>203.00</scale>
         <rotation>0.00</rotation>
-        <min_depth>100.00</min_depth>
-        <max_depth>100.00</max_depth>
-        <n_steps>2</n_steps>
+        <min_depth>35.00</min_depth>
+        <max_depth>54.00</max_depth>
+        <n_steps>6</n_steps>
     </detection>
     <osc>
         <mode>receive</mode>
         <host>localhost</host>
         <port>12345</port>
     </osc>
+    <dataset>confluence</dataset>
 </config>

@@ -27,11 +27,12 @@ const ofColor STEP_COLOR_11 = ofColor(192,0,96);
 //========================================================================
 int main()
 {
-    ofSetLogLevel(OF_LOG_VERBOSE);
+    ofSetLogLevel(OF_LOG_ERROR);
+//    ofSetLogLevel(OF_LOG_VERBOSE);
 
     ofGLFWWindowSettings settings;
     settings.setPosition(glm::vec2(0,0));
-    settings.setSize(DEFAULT_INTERFACE_WIDTH, DEFAULT_INTERFACE_HEIGHT);
+    //settings.setSize(DEFAULT_INTERFACE_WIDTH, DEFAULT_INTERFACE_HEIGHT);
     settings.setGLVersion(3,2);
     settings.windowMode = OF_GAME_MODE;
     shared_ptr<ofAppBaseWindow> mainWindow = ofCreateWindow(settings);

@@ -38,8 +38,9 @@ public:
 
 private:
     
-    std::vector<ofImage> _images;
-	ofVideoPlayer _video;
+    std::map<int,ofImage> _images;
+    std::map<int,ofVideoPlayer> _videos;
+
 };
 
 #endif /* scenario_h */

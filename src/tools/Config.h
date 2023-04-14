@@ -61,6 +61,10 @@ public :
 
     bool _projection;
 
+    //
+
+    std::string _dataset;
+
 	// INTERFACE
 
     bool _interface_visible;

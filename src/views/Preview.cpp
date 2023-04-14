@@ -70,9 +70,6 @@ void Preview::draw(
     this->_shader_background.setUniform1f("max_depth", max_depth);
     this->_shader_background.setUniform1i("vflip", 1);
 
-    
-    this->_shader_background.setUniform2f("offset_tex", offset_x, offset_y);
-
 //    this->_shader.setUniform4f("color_0", STEP_COLOR_0);
 //    this->_shader.setUniform4f("color_1", STEP_COLOR_1);
 //    this->_shader.setUniform4f("color_2", STEP_COLOR_2);
@@ -106,7 +103,8 @@ void Preview::draw(
     this->_shader_scene.setUniform1f("min_depth", min_depth);
     this->_shader_scene.setUniform1f("max_depth", max_depth);
     this->_shader_scene.setUniform1i("vflip", 1);
-    
+    this->_shader_scene.setUniform2f("offset_tex", offset_x, offset_y);
+
 //    this->_shader.setUniform4f("color_0", STEP_COLOR_0);
 //    this->_shader.setUniform4f("color_1", STEP_COLOR_1);
 //    this->_shader.setUniform4f("color_2", STEP_COLOR_2);

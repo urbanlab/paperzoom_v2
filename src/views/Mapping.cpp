@@ -72,7 +72,7 @@ Mapping::Mapping(ConfigShPtr config)
     this->_smooth2 = Smooth::create();
     this->_blur = Blur::create();
     
-    this->_debug.load("out.png");
+    //this->_debug.load("out.png");
     
     //
     

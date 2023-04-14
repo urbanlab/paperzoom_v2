@@ -418,7 +418,7 @@ void Interface::keyPressed(int key)
     
     float incr = 1;
     if ( _keypressed[3680] ) { incr = 0.1f; }
-    if ( _keypressed[3686] ) { incr = 0.01f; }
+    if ( _keypressed[3682] ) { incr = 0.01f; }
     if ( _keypressed[120] && _keypressed[57357] ) { this->_projection->incrOffsetTexX(incr); }
     if ( _keypressed[120] && _keypressed[57359] ) { this->_projection->incrOffsetTexX(-incr); }
     
