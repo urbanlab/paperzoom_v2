@@ -5,6 +5,8 @@ in vec2 vs_texcoord;
 uniform sampler2DRect tex;
 uniform ivec2 tex_resolution;
 
+uniform int vflip;
+
 out vec4 frag_color;
 
 float map(float value, float istart, float istop, float ostart, float ostop)
@@ -15,6 +17,8 @@ float map(float value, float istart, float istop, float ostart, float ostop)
 void main()
 {
     vec2 texcoord = vec2(vs_texcoord.x, vs_texcoord.y);
+    if (vflip == 1) { texcoord = vec2(vs_texcoord.x, 1.f-vs_texcoord.y); }
+
     vec4 color = texture(tex, texcoord * tex_resolution);
 
     if ( color.a == 0 )

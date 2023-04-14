@@ -1,9 +1,9 @@
 <config>
-    <production>1</production>
+    <production>0</production>
     <interface>
         <visible>1</visible>
-        <width>1920</width>
-        <height>1080</height>
+        <width>1512</width>
+        <height>915</height>
         <fullscreen>0</fullscreen>
         <x>0</x>
         <y>0</y>
@@ -13,25 +13,27 @@
         <padding>32</padding>
     </interface>
     <projection>
-        <width>1920</width>
-        <height>1080</height>
+        <width>1512</width>
+        <height>915</height>
+        <offset_tex_x>15.01</offset_tex_x>
+        <offset_tex_y>38.01</offset_tex_y>
         <mask>
-            <left>
-                <p1>0</p1>
-                <p2>0</p2>
-            </left>
-            <top>
-                <p1>0</p1>
-                <p2>0</p2>
-            </top>
-            <right>
-                <p1>0</p1>
-                <p2>0</p2>
-            </right>
-            <bottom>
-                <p1>0</p1>
-                <p2>0</p2>
-            </bottom>
+            <top_left>
+                <x>374</x>
+                <y>12</y>
+            </top_left>
+            <top_right>
+                <x>0</x>
+                <y>0</y>
+            </top_right>
+            <bottom_left>
+                <x>0</x>
+                <y>0</y>
+            </bottom_left>
+            <bottom_right>
+                <x>0</x>
+                <y>0</y>
+            </bottom_right>
         </mask>
     </projection>
     <kinect>
@@ -39,13 +41,13 @@
         <height>480</height>
     </kinect>
     <detection>
-        <x>993</x>
-        <y>559</y>
-        <scale>201</scale>
-        <rotation>359</rotation>
-        <min_depth>40</min_depth>
-        <max_depth>52</max_depth>
-        <n_steps>5</n_steps>
+        <x>320.00</x>
+        <y>240.00</y>
+        <scale>100.00</scale>
+        <rotation>0.00</rotation>
+        <min_depth>100.00</min_depth>
+        <max_depth>100.00</max_depth>
+        <n_steps>2</n_steps>
     </detection>
     <osc>
         <mode>receive</mode>

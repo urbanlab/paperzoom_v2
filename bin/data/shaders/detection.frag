@@ -25,7 +25,8 @@ float map(float value, float istart, float istop, float ostart, float ostop)
 
 void main()
 {
-    vec2 texcoord = vec2(1.f - vs_texcoord.x, 1.f - vs_texcoord.y)*tex_resolution;
+    vec2 texcoord = vec2(vs_texcoord.x, 1.f-vs_texcoord.y)*tex_resolution;
+
     vec4 color = texture(tex, texcoord);
     
     if ( color.r < min_depth || texcoord.x < 0 || texcoord.y >= tex_resolution.y)

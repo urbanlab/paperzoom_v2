@@ -9,6 +9,8 @@ uniform int n_steps;
 uniform float min_depth;
 uniform float max_depth;
 
+uniform int vflip;
+
 //uniform vec4 color_0, color_1, color_2, color_3, color_4, color_5, color_6, color_7, color_8, color_9, color_10, color_11;
 
 uniform sampler2DRect img0;
@@ -33,7 +35,9 @@ float map(float value, float istart, float istop, float ostart, float ostop)
 
 void main()
 {
-    vec2 texcoord = vec2(1.f - vs_texcoord.x, 1.f - vs_texcoord.y);
+    vec2 texcoord = vec2(vs_texcoord.x, vs_texcoord.y);
+    if (vflip == 1) { texcoord = vec2(vs_texcoord.x, 1.f - vs_texcoord.y); }
+
     vec4 color = texture(tex, texcoord * tex_resolution);
     
 //    if ( color.r < min_depth || color.r > max_depth )

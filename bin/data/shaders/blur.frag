@@ -21,7 +21,7 @@ out vec4 frag_color;
 
 void main()
 {
-    vec2 texcoord = vec2(1.0-vs_texcoord.x, 1.0-vs_texcoord.y);
+    vec2 texcoord = vec2(vs_texcoord.x, vs_texcoord.y);
 
     vec4 color = vec4(vec3(0),1);
     int count = 0;
