@@ -41,14 +41,15 @@ public:
     void mouseDragged(int x, int y);
     void mouseReleased(int x, int y);
     void keyPressed(int key);
+    void keyReleased(int key);
 
     void drawFbo(ofTexture & tex, bool is_new);
     ofTexture & getFboTexture();
 
-    int getScale();
-    int getX();
-    int getY();
-    int getRot();
+    float getScale();
+    float getX();
+    float getY();
+    float getRot();
 
     void updateValues();
     
@@ -75,9 +76,9 @@ private:
     //
     
     float _tex_scale;
-    int _tex_x;
-    int _tex_y;
-    int _tex_rot;
+    float _tex_x;
+    float _tex_y;
+    float _tex_rot;
 
     ParameterShPtr _scale;
     int _scale_x, _scale_y;

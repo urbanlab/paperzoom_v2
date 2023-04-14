@@ -1,23 +1,23 @@
-#include "Parameter.h"
+#include "ParameterInt.h"
 
 //-- CONSTRUCTION | DESTRUCTION -------------------------------------------------
 
-std::map<std::string,ParameterShPtr> Parameter::_parameters;
+std::map<std::string,ParameterIntShPtr> ParameterInt::_parameters;
 
-ParameterShPtr Parameter::create(const std::string & name, float value, float min, float max, const std::string & suffix )
+ParameterIntShPtr ParameterInt::create(const std::string & name, int value, int min, int max, const std::string & suffix )
 {
-	ParameterShPtr Parameter_shptr(new Parameter(name, value, min, max, suffix));
-	Parameter_shptr->_weak_ptr = Parameter_shptr;
-    _parameters[ofToString(Parameter_shptr->_id)] = Parameter_shptr;
-	return Parameter_shptr;
+	ParameterIntShPtr ParameterInt_shptr(new ParameterInt(name, value, min, max, suffix));
+	ParameterInt_shptr->_weak_ptr = ParameterInt_shptr;
+    _parameters[ofToString(ParameterInt_shptr->_id)] = ParameterInt_shptr;
+	return ParameterInt_shptr;
 }
 
-Parameter::~Parameter()
+ParameterInt::~ParameterInt()
 {
 	this->_weak_ptr.reset();
 }
 
-Parameter::Parameter(const std::string & name, float value, float min, float max, const std::string & suffix)
+ParameterInt::ParameterInt(const std::string & name, int value, int min, int max, const std::string & suffix)
 {
     this->_name = name;
     this->setValue(value);
@@ -28,41 +28,41 @@ Parameter::Parameter(const std::string & name, float value, float min, float max
     this->_hover = false;
     this->_width = 0;
     
-    this->_id = Parameter::_id_count;
-    Parameter::_id_count++;
+    this->_id = ParameterInt::_id_count;
+    ParameterInt::_id_count++;
 }
 
-ofxOscSender Parameter::_osc_sender;
-ofxOscReceiver Parameter::_osc_receiver;
-std::string Parameter::_osc_mode;
-int Parameter::_id_count = 0;
+ofxOscSender ParameterInt::_osc_sender;
+ofxOscReceiver ParameterInt::_osc_receiver;
+std::string ParameterInt::_osc_mode;
+int ParameterInt::_id_count = 0;
 
-void Parameter::initOsc(const std::string & mode, const std::string & host, int port)
+void ParameterInt::initOsc(const std::string & mode, const std::string & host, int port)
 {
-    Parameter::_osc_mode = mode;
+    ParameterInt::_osc_mode = mode;
     if ( mode == "send" )
     {
-        Parameter::_osc_sender.setup(host, port);
+        ParameterInt::_osc_sender.setup(host, port);
     }
     else
     {
-        Parameter::_osc_receiver.setup(port);
+        ParameterInt::_osc_receiver.setup(port);
     }
 }
 
-void Parameter::setOscValue(const std::string & id, float value)
+void ParameterInt::setOscValue(const std::string & id, int value)
 {
-    Parameter::_parameters[id]->setValue(value);
+    ParameterInt::_parameters[id]->setValue(value);
 }
 
 //-- METHODS --------------------------------------------------------------------
 
-//void Parameter::update()
+//void ParameterInt::update()
 //{
 //
 //}
 
-int Parameter::draw(int width, ofTrueTypeFont & font)
+int ParameterInt::draw(int width, ofTrueTypeFont & font)
 {
     ofSetColor(255);
     
@@ -73,8 +73,8 @@ int Parameter::draw(int width, ofTrueTypeFont & font)
     y += font.stringHeight(this->_name);
     font.drawString(this->_name, x, y);
     
-    x = width - font.stringWidth(ofToString(this->_value,2)+" "+this->_suffix);
-    font.drawString(ofToString(this->_value,2)+" "+this->_suffix, x, y);
+    x = width - font.stringWidth(ofToString(this->_value)+" "+this->_suffix);
+    font.drawString(ofToString(this->_value)+" "+this->_suffix, x, y);
     
     x = 0;
     y += WINDOW_PADDING/4.f;
@@ -99,7 +99,7 @@ int Parameter::draw(int width, ofTrueTypeFont & font)
     return y;
 }
 
-void Parameter::mouseMoved(int x, int y)
+void ParameterInt::mouseMoved(int x, int y)
 {
     if ( this->_slider.inside(x, y) )
     {
@@ -111,20 +111,20 @@ void Parameter::mouseMoved(int x, int y)
     }
 }
 
-void Parameter::setValue(float value)
+void ParameterInt::setValue(int value)
 {
     this->_value = value;
     
-    if (Parameter::_osc_mode == "send" )
+    if (ParameterInt::_osc_mode == "send" )
     {
         ofxOscMessage mess;
         mess.setAddress(ofToString(this->_id));
-        mess.addFloatArg(this->_value);
-        Parameter::_osc_sender.sendMessage(mess);
+        mess.addIntArg(this->_value);
+        ParameterInt::_osc_sender.sendMessage(mess);
     }
 }
 
-float Parameter::incr(float value)
+int ParameterInt::incr(int value)
 {
     this->_value += value;
     this->_value = min(this->_value, this->_max);
@@ -134,7 +134,7 @@ float Parameter::incr(float value)
     return this->_value;
 }
 
-float Parameter::mousePressed(int x, int y)
+int ParameterInt::mousePressed(int x, int y)
 {
     if ( this->_slider.inside(x, y) )
     {
@@ -149,7 +149,7 @@ float Parameter::mousePressed(int x, int y)
     }
 }
 
-float Parameter::mouseDragged(int x, int y)
+int ParameterInt::mouseDragged(int x, int y)
 {
     if ( this->_slider.inside(x, y) )
     {
@@ -164,12 +164,12 @@ float Parameter::mouseDragged(int x, int y)
     }
 }
 
-void Parameter::mouseReleased(int x, int y)
+void ParameterInt::mouseReleased(int x, int y)
 {
     this->_hover = false;
 }
 
-float Parameter::keyPressed(int key)
+int ParameterInt::keyPressed(int key)
 {
     // 3680 > Shift
     // 3686 > Cmd
@@ -196,13 +196,13 @@ float Parameter::keyPressed(int key)
     return this->_value;
 }
 
-void Parameter::keyReleased(int key)
+void ParameterInt::keyReleased(int key)
 {
     this->_keypressed[key] = false;
 }
 
 
-float Parameter::getValue()
+int ParameterInt::getValue()
 {
     return this->_value;
 }

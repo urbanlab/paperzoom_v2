@@ -1,6 +1,7 @@
 #include "Detection.h"
 #include "tools/Config.h"
 #include "views/Parameter.h"
+#include "views/ParameterInt.h"
 
 //-- CONSTRUCTION | DESTRUCTION -------------------------------------------------
 
@@ -43,7 +44,7 @@ Detection::Detection(ConfigShPtr config)
     
     //
     
-    this->_steps = Parameter::create("Intervalles", config->_detection_steps, 1, N_MAX_STEPS, "");
+    this->_steps = ParameterInt::create("Intervalles", config->_detection_steps, 1, N_MAX_STEPS, "");
     this->_min = Parameter::create("Distance — min", config->_detection_min, 0, 100, "%");
     this->_max = Parameter::create("Distance — max", config->_detection_max, 1, 100, "%");
 
@@ -229,8 +230,8 @@ ofTexture & Detection::getFboTexture()
 }
 
 
-int Detection::getMin() { return this->_min->getValue(); }
-int Detection::getMax() { return this->_max->getValue(); }
+float Detection::getMin() { return this->_min->getValue(); }
+float Detection::getMax() { return this->_max->getValue(); }
 int Detection::getSteps() { return this->_steps->getValue(); }
 
 void Detection::mouseMoved(int x, int y)
@@ -246,7 +247,7 @@ void Detection::mouseMoved(int x, int y)
 
 void Detection::mousePressed(int x, int y)
 {
-    int value = -1;
+    float value = -1;
     
     if ( (value = this->_steps->mousePressed(x-this->_steps_x, y-this->_steps_y)) >= 0 )
     {
@@ -277,7 +278,7 @@ void Detection::mousePressed(int x, int y)
 
 void Detection::mouseDragged(int x, int y)
 {
-    int value = -1;
+    float value = -1;
     
     if ( (value = this->_steps->mousePressed(x-this->_steps_x, y-this->_steps_y)) >= 0 )
     {
@@ -319,7 +320,7 @@ void Detection::mouseReleased(int x, int y)
 
 void Detection::keyPressed(int key)
 {
-    int value = -1;
+    float value = -1;
     
     if ( value = this->_steps->keyPressed(key) )
     {
@@ -350,6 +351,13 @@ void Detection::keyPressed(int key)
 //    {
 //        this->_tex_y = value;
 //    }
+}
+
+void Detection::keyReleased(int key)
+{
+    this->_steps->keyReleased(key);
+    this->_min->keyReleased(key);
+    this->_max->keyReleased(key);
 }
 
 void Detection::updateValues()

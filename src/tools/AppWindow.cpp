@@ -81,7 +81,6 @@ void AppWindow::setup()
         WINDOW_HEIGHT = INTERFACE_HEIGHT;
     }
     
-    std::cout << WINDOW_WIDTH << " " << WINDOW_HEIGHT << std::endl;
     this->_window->setWindowShape(WINDOW_WIDTH, WINDOW_HEIGHT);
     
     if (this->_config->_interface_center)

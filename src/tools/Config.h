@@ -32,22 +32,25 @@ public:
     
 public:
     
-    void setMaskL1(int value);
-    void setMaskL2(int value);
-    void setMaskT1(int value);
-    void setMaskT2(int value);
-    void setMaskR1(int value);
-    void setMaskR2(int value);
-    void setMaskB1(int value);
-    void setMaskB2(int value);
+    void setMaskTLx(float value);
+    void setMaskTLy(float value);
+    void setMaskTRx(float value);
+    void setMaskTRy(float value);
+    void setMaskBLx(float value);
+    void setMaskBLy(float value);
+    void setMaskBRx(float value);
+    void setMaskBRy(float value);
+    
+    void setOffsetTexX(float value);
+    void setOffsetTexY(float value);
 
-    void setDetectionScale(int value);
-    void setDetectionX(int value);
-    void setDetectionY(int value);
-    void setDetectionRot(int value);
+    void setDetectionScale(float value);
+    void setDetectionX(float value);
+    void setDetectionY(float value);
+    void setDetectionRot(float value);
 
-    void setDetectionMin(int value);
-    void setDetectionMax(int value);
+    void setDetectionMin(float value);
+    void setDetectionMax(float value);
     void setDetectionSteps(int value);
     
     void save();
@@ -75,10 +78,13 @@ public :
 
     int _projection_width;
     int _projection_height;
-    int _mask_l1, _mask_l2;
-    int _mask_t1, _mask_t2;
-    int _mask_r1, _mask_r2;
-    int _mask_b1, _mask_b2;
+    float _mask_tlx, _mask_tly;
+    float _mask_trx, _mask_try;
+    float _mask_blx, _mask_bly;
+    float _mask_brx, _mask_bry;
+    
+    float _offset_tex_x;
+    float _offset_tex_y;
 
     // KINECT
     
@@ -87,13 +93,13 @@ public :
     
     // DETECTION
     
-    int _detection_x;
-    int _detection_y;
-    int _detection_scale;
-    int _detection_rot;
+    float _detection_x;
+    float _detection_y;
+    float _detection_scale;
+    float _detection_rot;
 
-    int _detection_min;
-    int _detection_max;
+    float _detection_min;
+    float _detection_max;
     int _detection_steps;
     
     // OSC

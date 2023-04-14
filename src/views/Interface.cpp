@@ -263,6 +263,7 @@ void Interface::draw(ScenarioShPtr scene)
         this->_preview->draw(
             width, height, this->_detection->getSteps(),
             this->_detection->getMin()/100.f, this->_detection->getMax()/100.f,
+            this->_projection->getOffsetTexX()/1000.f, this->_projection->getOffsetTexY()/1000.f,
             this->_mapping->getFboTexture(), scene);
     }
     ofPopMatrix();
@@ -385,41 +386,61 @@ void Interface::keyPressed(int key)
 
     _keypressed[key] = true;
 
-    // g 103
-    // h 104
-    // d  100
-    // b 98
-    // 1 38
-    // 2 233
-    // top 57357
-    // bottom 57359
+//    1 38
+//    2 233
+//    3 34
+//    4 39
+//    up 57357
+//    down 57359
+//    left 57356
+//    right 57358
+        
+    if ( _keypressed[38] && _keypressed[57358] ) { this->_projection->incrTLX(1); }
+    if ( _keypressed[38] && _keypressed[57356] ) { this->_projection->incrTLX(-1); }
+    if ( _keypressed[38] && _keypressed[57357] ) { this->_projection->incrTLY(-1); }
+    if ( _keypressed[38] && _keypressed[57359] ) { this->_projection->incrTLY(1); }
 
-    if ( key == 57357 || key == 57359 )
-    if ( _keypressed[103] && _keypressed[38] ) { this->_projection->incrLeftT( key == 57357 ? 1 : -1 ); }
-    if ( _keypressed[103] && _keypressed[233] ) { this->_projection->incrLeftB( key == 57357 ? 1 : -1 ); }
+    if ( _keypressed[233] && _keypressed[57358] ) { this->_projection->incrTRX(-1); }
+    if ( _keypressed[233] && _keypressed[57356] ) { this->_projection->incrTRX(1); }
+    if ( _keypressed[233] && _keypressed[57357] ) { this->_projection->incrTRY(-1); }
+    if ( _keypressed[233] && _keypressed[57359] ) { this->_projection->incrTRY(1); }
     
-    if ( _keypressed[104] && _keypressed[38] ) { this->_projection->incrTopL( key == 57357 ? 1 : -1 ); }
-    if ( _keypressed[104] && _keypressed[233] ) { this->_projection->incrTopR( key == 57357 ? 1 : -1 ); }
-
-    if ( _keypressed[100] && _keypressed[38] ) { this->_projection->incrRightT( key == 57357 ? 1 : -1 ); }
-    if ( _keypressed[100] && _keypressed[233] ) { this->_projection->incrRightB( key == 57357 ? 1 : -1 ); }
+    if ( _keypressed[34] && _keypressed[57358] ) { this->_projection->incrBRX(-1); }
+    if ( _keypressed[34] && _keypressed[57356] ) { this->_projection->incrBRX(1); }
+    if ( _keypressed[34] && _keypressed[57357] ) { this->_projection->incrBRY(1); }
+    if ( _keypressed[34] && _keypressed[57359] ) { this->_projection->incrBRY(-1); }
     
-    if ( _keypressed[98] && _keypressed[38] ) { this->_projection->incrBottomL( key == 57357 ? 1 : -1 ); }
-    if ( _keypressed[98] && _keypressed[233] ) { this->_projection->incrBottomR( key == 57357 ? 1 : -1 ); }
+    if ( _keypressed[39] && _keypressed[57358] ) { this->_projection->incrBLX(1); }
+    if ( _keypressed[39] && _keypressed[57356] ) { this->_projection->incrBLX(-1); }
+    if ( _keypressed[39] && _keypressed[57357] ) { this->_projection->incrBLY(1); }
+    if ( _keypressed[39] && _keypressed[57359] ) { this->_projection->incrBLY(-1); }
+    
+    
+    float incr = 1;
+    if ( _keypressed[3680] ) { incr = 0.1f; }
+    if ( _keypressed[3686] ) { incr = 0.01f; }
+    if ( _keypressed[120] && _keypressed[57357] ) { this->_projection->incrOffsetTexX(incr); }
+    if ( _keypressed[120] && _keypressed[57359] ) { this->_projection->incrOffsetTexX(-incr); }
+    
+    if ( _keypressed[121] && _keypressed[57357] ) { this->_projection->incrOffsetTexY(incr); }
+    if ( _keypressed[121] && _keypressed[57359] ) { this->_projection->incrOffsetTexY(-incr); }
     
     if ( key == 115 )
     {
-        this->_config->setMaskL1( this->_projection->getLeftTop() );
-        this->_config->setMaskL2( this->_projection->getLeftBottom() );
+        this->_config->setMaskTLx( this->_projection->getTopLeftX() );
+        this->_config->setMaskTLy( this->_projection->getTopLeftY() );
 
-        this->_config->setMaskT1( this->_projection->getTopLeft() );
-        this->_config->setMaskT2( this->_projection->getTopRight() );
+        this->_config->setMaskTRx( this->_projection->getTopRightX() );
+        this->_config->setMaskTRy( this->_projection->getTopRightY() );
 
-        this->_config->setMaskR1( this->_projection->getRightTop() );
-        this->_config->setMaskR2( this->_projection->getRightBottom() );
+        this->_config->setMaskBLx( this->_projection->getBottomLeftX() );
+        this->_config->setMaskBLy( this->_projection->getBottomLeftY() );
 
-        this->_config->setMaskB1( this->_projection->getBottomLeft() );
-        this->_config->setMaskB2( this->_projection->getBottomRight() );
+        this->_config->setMaskBRx( this->_projection->getBottomRightX() );
+        this->_config->setMaskBRy( this->_projection->getBottomRightY() );
+        
+        this->_config->setOffsetTexX( this->_projection->getOffsetTexX() );
+        this->_config->setOffsetTexY( this->_projection->getOffsetTexY() );
 
         this->_config->save();
     }
@@ -428,24 +449,30 @@ void Interface::keyPressed(int key)
 void Interface::keyReleased(int key)
 {
     _keypressed[key] = false;
+    if (this->_mode == 0 ) { this->_projection->keyReleased(key); }
+    if (this->_mode == 1 ) { this->_mapping->keyReleased(key); }
+    if (this->_mode == 2 ) { this->_detection->keyReleased(key); }
 }
 
 void Interface::save()
 {
     if (this->_mode == 0 || Parameter::_osc_mode == "receive" )
     {
-        this->_config->setMaskL1( this->_projection->getLeftTop() );
-        this->_config->setMaskL2( this->_projection->getLeftBottom() );
+        this->_config->setMaskTLx( this->_projection->getTopLeftX() );
+        this->_config->setMaskTLy( this->_projection->getTopLeftY() );
 
-        this->_config->setMaskT1( this->_projection->getTopLeft() );
-        this->_config->setMaskT2( this->_projection->getTopRight() );
+        this->_config->setMaskTRx( this->_projection->getTopRightX() );
+        this->_config->setMaskTRy( this->_projection->getTopRightY() );
 
-        this->_config->setMaskR1( this->_projection->getRightTop() );
-        this->_config->setMaskR2( this->_projection->getRightBottom() );
+        this->_config->setMaskBLx( this->_projection->getBottomLeftX() );
+        this->_config->setMaskBLy( this->_projection->getBottomLeftY() );
 
-        this->_config->setMaskB1( this->_projection->getBottomLeft() );
-        this->_config->setMaskB2( this->_projection->getBottomRight() );
+        this->_config->setMaskBRx( this->_projection->getBottomRightX() );
+        this->_config->setMaskBRy( this->_projection->getBottomRightY() );
 
+        this->_config->setOffsetTexX( this->_projection->getOffsetTexX() );
+        this->_config->setOffsetTexY( this->_projection->getOffsetTexY() );
+        
         this->_config->save();
     }
     

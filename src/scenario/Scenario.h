@@ -39,6 +39,7 @@ public:
 private:
     
     std::vector<ofImage> _images;
+	ofVideoPlayer _video;
 };
 
 #endif /* scenario_h */

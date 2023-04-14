@@ -54,7 +54,7 @@ void Preview::update()
 //}
 
 void Preview::draw(
-    int width, int height, int n_steps, float min_depth, float max_depth,
+                   int width, int height, int n_steps, float min_depth, float max_depth, float offset_x, float offset_y,
     ofTexture & tex, ScenarioShPtr scene )
 {
     ofSetColor(255);
@@ -68,7 +68,11 @@ void Preview::draw(
     this->_shader_background.setUniform1i("n_steps", n_steps);
     this->_shader_background.setUniform1f("min_depth", min_depth);
     this->_shader_background.setUniform1f("max_depth", max_depth);
+    this->_shader_background.setUniform1i("vflip", 1);
+
     
+    this->_shader_background.setUniform2f("offset_tex", offset_x, offset_y);
+
 //    this->_shader.setUniform4f("color_0", STEP_COLOR_0);
 //    this->_shader.setUniform4f("color_1", STEP_COLOR_1);
 //    this->_shader.setUniform4f("color_2", STEP_COLOR_2);
@@ -101,6 +105,7 @@ void Preview::draw(
     this->_shader_scene.setUniform1i("n_steps", n_steps);
     this->_shader_scene.setUniform1f("min_depth", min_depth);
     this->_shader_scene.setUniform1f("max_depth", max_depth);
+    this->_shader_scene.setUniform1i("vflip", 1);
     
 //    this->_shader.setUniform4f("color_0", STEP_COLOR_0);
 //    this->_shader.setUniform4f("color_1", STEP_COLOR_1);

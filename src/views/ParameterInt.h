@@ -1,5 +1,5 @@
-#ifndef parameter_h
-#define parameter_h
+#ifndef parameterint_h
+#define parameterint_h
 
 #include "tools/Globals.h"
 
@@ -8,27 +8,27 @@
 //-------------------------------------------------------------------------------
 
 #include "tools/Macro.h"
-DEF_CLASS_SMART_PTR(Parameter)
+DEF_CLASS_SMART_PTR(ParameterInt)
 
 //-------------------------------------------------------------------------------
 
-class Parameter
+class ParameterInt
 {
 	//-- CONSTRUCTION / DESTRUCTION ---------------------------------------------
 
 public:
 
-	static ParameterShPtr create(
-        const std::string & name, float value, float min, float max, const std::string & suffix = "" );
-	virtual ~Parameter();
+	static ParameterIntShPtr create(
+        const std::string & name, int value, int min, int max, const std::string & suffix = "" );
+	virtual ~ParameterInt();
 
 protected:
 
-	Parameter( const std::string & name, float value, float min, float max, const std::string & suffix );
+	ParameterInt( const std::string & name, int value, int min, int max, const std::string & suffix );
 
 public:
 
-	ParameterWkPtr _weak_ptr;
+	ParameterIntWkPtr _weak_ptr;
 
 	//-- METHODS ----------------------------------------------------------------
     
@@ -37,25 +37,25 @@ public:
 //    void update();
     int draw(int width, ofTrueTypeFont & font);
     void mouseMoved(int x, int y);
-    float mousePressed(int x, int y);
-    float mouseDragged(int x, int y);
+    int mousePressed(int x, int y);
+    int mouseDragged(int x, int y);
     void mouseReleased(int x, int y);
-    float keyPressed(int key);
+    int keyPressed(int key);
     void keyReleased(int key);
 
-    float getValue();
+    int getValue();
     
     static void initOsc(const std::string & mode, const std::string & host, int port);
     
-    static void setOscValue(const std::string & id, float value);
+    static void setOscValue(const std::string & id, int value);
     
-    static std::map<std::string,ParameterShPtr> _parameters;
+    static std::map<std::string,ParameterIntShPtr> _parameters;
     
-    float incr(float value);
+    int incr(int value);
 
 private:
     
-    void setValue(float value);
+    void setValue(int value);
 
     
 	//-- ATTRIBUTES -------------------------------------------------------------
@@ -63,9 +63,9 @@ private:
 private:
     
     std::string _name;
-    float _value;
-    float _min;
-    float _max;
+    int _value;
+    int _min;
+    int _max;
     int _id;
 
     std::string _suffix;
@@ -88,4 +88,4 @@ public:
     static std::string _osc_mode;
 };
 
-#endif /* parameter_h */
+#endif /* parameterint_h */

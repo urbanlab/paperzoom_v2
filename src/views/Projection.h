@@ -8,6 +8,7 @@
 #include "tools/Macro.h"
 DEF_CLASS_SMART_PTR(Projection)
 DEF_CLASS_SH_PTR(Config)
+DEF_CLASS_SH_PTR(ParameterInt)
 DEF_CLASS_SH_PTR(Parameter)
 
 //-------------------------------------------------------------------------------
@@ -38,27 +39,34 @@ public:
     void mouseDragged(int x, int y);
     void mouseReleased(int x, int y);
     void keyPressed(int key);
+    void keyReleased(int key);
+
+    int getTopLeftX();
+    int getTopLeftY();
+    int getTopRightX();
+    int getTopRightY();
+    int getBottomLeftX();
+    int getBottomLeftY();
+    int getBottomRightX();
+    int getBottomRightY();
+
+    float getOffsetTexX();
+    float getOffsetTexY();
+
+    void incrTLX(int v);
+    void incrTLY(int v);
     
-    int getLeftTop();
-    int getLeftBottom();
-    int getTopLeft();
-    int getTopRight();
-    int getRightTop();
-    int getRightBottom();
-    int getBottomLeft();
-    int getBottomRight();
+    void incrTRX(int v);
+    void incrTRY(int v);
     
-    void incrLeftT(int v);
-    void incrLeftB(int v);
+    void incrBLX(int v);
+    void incrBLY(int v);
     
-    void incrTopL(int v);
-    void incrTopR(int v);
+    void incrBRX(int v);
+    void incrBRY(int v);
     
-    void incrRightT(int v);
-    void incrRightB(int v);
-    
-    void incrBottomL(int v);
-    void incrBottomR(int v);
+    void incrOffsetTexX(float v);
+    void incrOffsetTexY(float v);
     
     ofMesh & getLeft();
     ofMesh & getTop();
@@ -75,32 +83,42 @@ private:
     ofMesh _top;
     ofMesh _right;
     ofMesh _bottom;
+    
+    float _offset_x;
+    float _offset_y;
+
 
     int _thickness;
     
-    ParameterShPtr _left_top;
-    int _left_top_x, _left_top_y;
+    ParameterIntShPtr _tlx;
+    int _tlx_x, _tlx_y;
     
-    ParameterShPtr _left_bottom;
-    int _left_bottom_x, _left_bottom_y;
+    ParameterIntShPtr _tly;
+    int _tly_x, _tly_y;
     
-    ParameterShPtr _top_left;
-    int _top_left_x, _top_left_y;
+    ParameterIntShPtr _trx;
+    int _trx_x, _trx_y;
     
-    ParameterShPtr _top_right;
-    int _top_right_x, _top_right_y;
+    ParameterIntShPtr _try;
+    int _try_x, _try_y;
     
-    ParameterShPtr _right_top;
-    int _right_top_x, _right_top_y;
+    ParameterIntShPtr _blx;
+    int _blx_x, _blx_y;
     
-    ParameterShPtr _right_bottom;
-    int _right_bottom_x, _right_bottom_y;
+    ParameterIntShPtr _bly;
+    int _bly_x, _bly_y;
     
-    ParameterShPtr _bottom_left;
-    int _bottom_left_x, _bottom_left_y;
+    ParameterIntShPtr _brx;
+    int _brx_x, _brx_y;
     
-    ParameterShPtr _bottom_right;
-    int _bottom_right_x, _bottom_right_y;
+    ParameterIntShPtr _bry;
+    int _bry_x, _bry_y;
+    
+    ParameterShPtr _offset_tex_x;
+    int _offset_tex_x_x, _offset_tex_x_y;
+    
+    ParameterShPtr _offset_tex_y;
+    int _offset_tex_y_x, _offset_tex_y_y;
 };
 
 #endif /* projection_h */

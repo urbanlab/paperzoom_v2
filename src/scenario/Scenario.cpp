@@ -20,6 +20,7 @@ Scenario::Scenario(const std::string & path)
     dir.allowExt("png");
     dir.allowExt("jpg");
     dir.allowExt("jpeg");
+
     dir.listDir();
     dir.sort();
     
@@ -28,15 +29,30 @@ Scenario::Scenario(const std::string & path)
         std::string name = dir.getName(i);
         this->_images.push_back(ofImage("images/"+path+"/"+name));
     }
+
+    this->_video.load("images/"+path+"/tuto.mov");
+    this->_video.setLoopState(OF_LOOP_NORMAL);
+    this->_video.play();
 }
 
 //-- METHODS --------------------------------------------------------------------
 
 void Scenario::bindImages(ofShader & shader)
 {
-    for ( int i = 0; i < this->_images.size(); i++ )
+    this->_video.update(); 
+
+    int img_index = 0;
+    for ( int i = 0; i < this->_images.size()+1; i++ )
     {
-        shader.setUniformTexture("img"+ofToString(i), this->_images[i].getTexture(), i+2);
+        if (i == 1)
+        {
+            shader.setUniformTexture("img"+ofToString(i), this->_video.getTexture(), i+2);
+        }
+        else
+        {
+            shader.setUniformTexture("img"+ofToString(i), this->_images[img_index].getTexture(), i+2);
+            img_index++;
+        }
     }
 }
 

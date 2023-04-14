@@ -57,19 +57,22 @@ Config::Config(const std::string & path)
     this->_projection_width = this->_xml.getValue("width", DEFAULT_PROJECTION_WIDTH);
     this->_projection_height = this->_xml.getValue("height", DEFAULT_PROJECTION_HEIGHT);
     
-    this->_xml.pushTag("mask"); this->_xml.pushTag("left");
-    this->_mask_l1 = this->_xml.getValue("p1", 0);
-    this->_mask_l2 = this->_xml.getValue("p2", 0);
-    this->_xml.popTag(); this->_xml.pushTag("top");
-    this->_mask_t1 = this->_xml.getValue("p1", 0);
-    this->_mask_t2 = this->_xml.getValue("p2", 0);
-    this->_xml.popTag(); this->_xml.pushTag("right");
-    this->_mask_r1 = this->_xml.getValue("p1", 0);
-    this->_mask_r2 = this->_xml.getValue("p2", 0);
-    this->_xml.popTag(); this->_xml.pushTag("bottom");
-    this->_mask_b1 = this->_xml.getValue("p1", 0);
-    this->_mask_b2 = this->_xml.getValue("p2", 0);
+    this->_xml.pushTag("mask"); this->_xml.pushTag("top_left");
+    this->_mask_tlx = this->_xml.getValue("x", 0.f);
+    this->_mask_tly = this->_xml.getValue("y", 0.f);
+    this->_xml.popTag(); this->_xml.pushTag("top_right");
+    this->_mask_trx = this->_xml.getValue("x", 0.f);
+    this->_mask_try = this->_xml.getValue("y", 0.f);
+    this->_xml.popTag(); this->_xml.pushTag("bottom_left");
+    this->_mask_blx = this->_xml.getValue("x", 0.f);
+    this->_mask_bly = this->_xml.getValue("y", 0.f);
+    this->_xml.popTag(); this->_xml.pushTag("bottom_right");
+    this->_mask_brx = this->_xml.getValue("x", 0.f);
+    this->_mask_bry = this->_xml.getValue("y", 0.f);
     this->_xml.popTag(); this->_xml.popTag();
+
+    this->_offset_tex_x =  this->_xml.getValue("offset_tex_x", 0.f);
+    this->_offset_tex_y =  this->_xml.getValue("offset_tex_y", 0.f);
 
     this->_xml.popTag();
 
@@ -93,11 +96,11 @@ Config::Config(const std::string & path)
 
     this->_detection_x = this->_xml.getValue("x", this->_kinect_width/2.f);
     this->_detection_y = this->_xml.getValue("y", this->_kinect_height/2.f);
-    this->_detection_scale = this->_xml.getValue("scale", 100);
-    this->_detection_rot = this->_xml.getValue("rotation", 0);
+    this->_detection_scale = this->_xml.getValue("scale", 100.f);
+    this->_detection_rot = this->_xml.getValue("rotation", 0.f);
 
-    this->_detection_min = this->_xml.getValue("min_depth", 100);
-    this->_detection_max = this->_xml.getValue("max_depth", 100);
+    this->_detection_min = this->_xml.getValue("min_depth", 100.f);
+    this->_detection_max = this->_xml.getValue("max_depth", 100.f);
     this->_detection_steps = this->_xml.getValue("n_steps", N_MAX_STEPS);
     this->_detection_steps = std::min(this->_detection_steps, N_MAX_STEPS);
     
@@ -120,22 +123,25 @@ Config::Config(const std::string & path)
 
 //-- METHODS --------------------------------------------------------------------
 
-void Config::setMaskL1(int value) { this->_mask_l1 = value; }
-void Config::setMaskL2(int value) { this->_mask_l2 = value; }
-void Config::setMaskT1(int value) { this->_mask_t1 = value; }
-void Config::setMaskT2(int value) { this->_mask_t2 = value; }
-void Config::setMaskR1(int value) { this->_mask_r1 = value; }
-void Config::setMaskR2(int value) { this->_mask_r2 = value; }
-void Config::setMaskB1(int value) { this->_mask_b1 = value; }
-void Config::setMaskB2(int value) { this->_mask_b2 = value; }
+void Config::setMaskTLx(float value) { this->_mask_tlx = value; }
+void Config::setMaskTLy(float value) { this->_mask_tly = value; }
+void Config::setMaskTRx(float value) { this->_mask_trx = value; }
+void Config::setMaskTRy(float value) { this->_mask_try = value; }
+void Config::setMaskBLx(float value) { this->_mask_blx = value; }
+void Config::setMaskBLy(float value) { this->_mask_bly = value; }
+void Config::setMaskBRx(float value) { this->_mask_brx = value; }
+void Config::setMaskBRy(float value) { this->_mask_bry = value; }
 
-void Config::setDetectionScale(int value) { this->_detection_scale = value; }
-void Config::setDetectionX(int value) { this->_detection_x = value; }
-void Config::setDetectionY(int value) { this->_detection_y = value; }
-void Config::setDetectionRot(int value) { this->_detection_rot = value; }
+void Config::setOffsetTexX(float value) { this->_offset_tex_x = value; }
+void Config::setOffsetTexY(float value) { this->_offset_tex_y = value; }
 
-void Config::setDetectionMin(int value) { this->_detection_min = value; }
-void Config::setDetectionMax(int value) { this->_detection_max = value; }
+void Config::setDetectionScale(float value) { this->_detection_scale = value; }
+void Config::setDetectionX(float value) { this->_detection_x = value; }
+void Config::setDetectionY(float value) { this->_detection_y = value; }
+void Config::setDetectionRot(float value) { this->_detection_rot = value; }
+
+void Config::setDetectionMin(float value) { this->_detection_min = value; }
+void Config::setDetectionMax(float value) { this->_detection_max = value; }
 void Config::setDetectionSteps(int value)  { this->_detection_steps = value; }
 
 void Config::save()
@@ -143,36 +149,45 @@ void Config::save()
     this->_xml.pushTag("config");
 
     this->_xml.pushTag("projection");
+    this->_xml.pushTag("mask");
+    
+    this->_xml.pushTag("top_left");
+    this->_xml.setValue("x", (int)this->_mask_tlx);
+    this->_xml.setValue("y", (int)this->_mask_tly);
+    this->_xml.popTag();
+    
+    this->_xml.pushTag("top_right");
+    this->_xml.setValue("x", (int)this->_mask_trx);
+    this->_xml.setValue("y", (int)this->_mask_try);
+    this->_xml.popTag();
+    
+    this->_xml.pushTag("bottom_left");
+    this->_xml.setValue("x", (int)this->_mask_blx);
+    this->_xml.setValue("y", (int)this->_mask_bly);
+    this->_xml.popTag();
+    
+    this->_xml.pushTag("bottom_right");
+    this->_xml.setValue("x", (int)this->_mask_brx);
+    this->_xml.setValue("y", (int)this->_mask_bry);
+    this->_xml.popTag();
+    
+    this->_xml.popTag();
+    
+    this->_xml.setValue("offset_tex_x", ofToString(this->_offset_tex_x,2));
+    this->_xml.setValue("offset_tex_y", ofToString(this->_offset_tex_y,2));
 
-    this->_xml.pushTag("mask"); this->_xml.pushTag("left");
-    this->_xml.setValue("p1", this->_mask_l1);
-    this->_xml.setValue("p2", this->_mask_l2);
-    
-    this->_xml.popTag(); this->_xml.pushTag("top");
-    this->_xml.setValue("p1", this->_mask_t1);
-    this->_xml.setValue("p2", this->_mask_t2);
-    
-    this->_xml.popTag(); this->_xml.pushTag("right");
-    this->_xml.setValue("p1", this->_mask_r1);
-    this->_xml.setValue("p2", this->_mask_r2);
-    
-    this->_xml.popTag(); this->_xml.pushTag("bottom");
-    this->_xml.setValue("p1", this->_mask_b1);
-    this->_xml.setValue("p2", this->_mask_b2);
-    
-    this->_xml.popTag(); this->_xml.popTag();
     this->_xml.popTag();
     
     this->_xml.pushTag("detection");
 
-    this->_xml.setValue("x", this->_detection_x);
-    this->_xml.setValue("y", this->_detection_y);
-    this->_xml.setValue("scale", this->_detection_scale);
-    this->_xml.setValue("rotation", this->_detection_rot);
+    this->_xml.setValue("x", ofToString(this->_detection_x,2));
+    this->_xml.setValue("y", ofToString(this->_detection_y,2));
+    this->_xml.setValue("scale", ofToString(this->_detection_scale,2));
+    this->_xml.setValue("rotation", ofToString(this->_detection_rot,2));
 
-    this->_xml.setValue("min_depth", this->_detection_min);
-    this->_xml.setValue("max_depth", this->_detection_max);
-    this->_xml.setValue("n_steps", this->_detection_steps);
+    this->_xml.setValue("min_depth", ofToString(this->_detection_min,2));
+    this->_xml.setValue("max_depth", ofToString(this->_detection_max,2));
+    this->_xml.setValue("n_steps", (int)this->_detection_steps);
 
     this->_xml.popTag();
             

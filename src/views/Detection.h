@@ -9,6 +9,7 @@
 DEF_CLASS_SMART_PTR(Detection)
 DEF_CLASS_SH_PTR(Config)
 DEF_CLASS_SH_PTR(Parameter)
+DEF_CLASS_SH_PTR(ParameterInt)
 
 //-------------------------------------------------------------------------------
 
@@ -40,12 +41,13 @@ public:
     void mouseDragged(int x, int y);
     void mouseReleased(int x, int y);
     void keyPressed(int key);
-    
+    void keyReleased(int key);
+
     void drawFbo(ofTexture & tex);
     ofTexture & getFboTexture();
     
-    int getMin();
-    int getMax();
+    float getMin();
+    float getMax();
     int getSteps();
 
     void updateValues();
@@ -66,7 +68,7 @@ private:
     float _min_depth;
     float _max_depth;
 
-    ParameterShPtr _steps;
+    ParameterIntShPtr _steps;
     int _steps_x, _steps_y;
     
     ParameterShPtr _min;

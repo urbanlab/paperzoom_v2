@@ -36,6 +36,7 @@ public:
     
     void draw(
         int width, int height, int n_steps, float min_depth, float max_depth,
+        float offset_x, float offset_y,
         ofTexture & tex, ScenarioShPtr scene
     );
     

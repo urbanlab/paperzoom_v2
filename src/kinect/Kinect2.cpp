@@ -52,7 +52,10 @@ Kinect2::Kinect2(ConfigShPtr config)
     _kinect->listDevices();
     _kinect->setRegistration(true);
     _kinect->init();
-    _kinect->open("A00365910253107A");
+    _kinect->open();//"A00365910253107A");
+    //_kinect->open("A00366810115040A");
+
+    
     this->_active = true;
     #endif
     

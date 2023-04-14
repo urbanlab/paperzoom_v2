@@ -126,6 +126,7 @@ void Mapping::drawFbo(ofTexture & tex, bool is_new)
     this->_shader.begin();
     this->_shader.setUniformTexture("tex", texture, 1);
     this->_shader.setUniform2i("tex_resolution", KINECT_WIDTH, KINECT_HEIGHT);
+    this->_shader.setUniform1i("vflip", 0);
 
     ofClear(0);
     ofBackground(0);
@@ -223,7 +224,7 @@ void Mapping::drawFbo(ofTexture & tex, bool is_new)
     this->_fbo.begin();
     this->_shader.begin();
     this->_shader.setUniformTexture("tex", this->_fbo_square.getTexture(), 1);
-//    this->_shader.setUniformTexture("tex", img, 1);
+    this->_shader.setUniform1i("vflip", 1);
     this->_shader.setUniform2i("tex_resolution", this->_fbo_square.getWidth(), this->_fbo_square.getHeight());
 //    this->_shader.setUniformTexture("tex", tex, 1);
 //    this->_shader.setUniform2i("tex_resolution", tex.getWidth(), tex.getHeight());
@@ -325,10 +326,10 @@ ofTexture & Mapping::getFboTexture()
 }
 
 
-int Mapping::getScale() { return this->_scale->getValue(); }
-int Mapping::getX() { return this->_pos_x->getValue(); }
-int Mapping::getY() { return this->_pos_y->getValue(); }
-int Mapping::getRot() { return this->_rot->getValue(); }
+float Mapping::getScale() { return this->_scale->getValue(); }
+float Mapping::getX() { return this->_pos_x->getValue(); }
+float Mapping::getY() { return this->_pos_y->getValue(); }
+float Mapping::getRot() { return this->_rot->getValue(); }
 
 void Mapping::mouseMoved(int x, int y)
 {
@@ -340,11 +341,10 @@ void Mapping::mouseMoved(int x, int y)
 
 void Mapping::mousePressed(int x, int y)
 {
-    int value = -1;
+    float value = -1;
     
     if ( (value = this->_scale->mousePressed(x-this->_scale_x, y-this->_scale_y)) >= 0 )
     {
-        
         this->_tex_scale = value / 100.f;
     }
     if ( (value = this->_pos_x->mousePressed(x-this->_pos_x_x, y-this->_pos_x_y)) >= 0 )
@@ -421,6 +421,13 @@ void Mapping::keyPressed(int key)
     }
 }
 
+void Mapping::keyReleased(int key)
+{
+    this->_scale->keyReleased(key);
+    this->_pos_x->keyReleased(key);
+    this->_pos_y->keyReleased(key);
+    this->_rot->keyReleased(key);
+}
 
 void Mapping::updateValues()
 {
