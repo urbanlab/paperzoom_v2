@@ -2,3 +2,5 @@ PAPERZOOM.xcodeproj/
 Project.xcconfig
 openFrameworks-Info.plist
 bin/PAPERZOOMDebug.app/
+bin/data/images/*
+.DS_Store
