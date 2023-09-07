@@ -8,9 +8,10 @@ USER_LIBS = -lusb-1.0
 ################################################################################
 # OF ROOT
 #   The location of your root openFrameworks installation
-#       (default) OF_ROOT = ../openframeworks-nightly 
+#       (default) OF_ROOT = ./openframeworks-nightly 
 ################################################################################
-OF_ROOT = /home/erasme/Documents/Paperzoom/openframeworks-nightly
+#OF_ROOT = /home/erasme/Documents/Paperzoom/openframeworks-nightly
+OF_ROOT = ./openframeworks-nightly
 
 ################################################################################
 # PROJECT ROOT
